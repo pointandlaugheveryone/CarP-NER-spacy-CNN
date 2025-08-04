@@ -54,18 +54,11 @@ async def azure_translate(text:str,filename_id:str):
    
 
 async def main():
-    data,filenames = parse_files()
-    while data != []:
-        for i in range(5):
-            await azure_translate(data.pop(i),filenames[i])
-
-    for i in range(572,2456):
-        with open(f'DATA/data_en/{i}.txt') as f:
-            name = f.name
-            text_en = f.read()
-            await azure_translate(text_en, name)
-        print('timeout')
-        time.sleep(100)
+    with open('m.txt','r') as f:
+        t = f.read()
+    en = await azure_translate(t,'m')
+    print(en)
+   
         
 
 asyncio.run(main())

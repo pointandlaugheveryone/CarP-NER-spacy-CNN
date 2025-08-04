@@ -1,6 +1,9 @@
-apienv/
-data_src/
-data_cs/
-data_backup
 __pycache__/
-/DATA
+apienv/
+DATA/
+en.txt
+*.spacy
+
+# generated vocab and skill data
+skill_db_relax_20.json
+token_dist.json

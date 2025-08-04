@@ -2,7 +2,7 @@ from openai import AzureOpenAI
 import azure.keyvault.secrets as azk
 from azure.identity import DefaultAzureCredential
 from models.data_models import Labels
-from models.label_models import Label, Document
+from models.data_models import Label, Document
 
 
 def get_key(keyname):
@@ -27,10 +27,11 @@ async def send_request(contents: str):
             {
                 "role": "system",
                 "content": """You are a Named Entity Recognition (NER) model used as an advanced ATS scanner.
-                Your job is to extract words matching the specified entity types; job skill, Job title.
-                Create a label even if there's a same word twice in different sections.
-                If there is a section with skills listed, include all of them, since a recruiter would focus on that.
-                if there are no words or phrases matching neither of the labels, return an empty list.
+                Your job is to extract words or phrases matching the specified entity types; job skill, Job title.
+                Be precise with matching skills with job relevant skills, and job titles with actual job titles (for example in previous positions)
+                Include technical skills like specific software listed. Do not label skills that are not relevant for a recruiter.
+                Do not label whole sentences, for example, instead of "Track progress through Google Analytics", just mark 'google analytics'.
+                if there are no words or phrases matching neither of the labels well enough that a human would label them as well, return an empty list.
                 Do not reformat or rephrase the text you find in the original document in any way, including capitalisation.
                 """,
             },

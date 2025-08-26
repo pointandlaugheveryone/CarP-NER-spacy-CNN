@@ -1,9 +1,8 @@
 __pycache__/
-apienv/
+ner-env/
 DATA/
-en.txt
 *.spacy
 
-# generated vocab and skill data
+patterns.jsonl
 skill_db_relax_20.json
 token_dist.json
